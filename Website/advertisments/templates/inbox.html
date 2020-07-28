@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>Hello this is inbox......</p>
+<div class="col col-md-4">
+    {% for msg in msg %}
+    <div>
+        {{ msg.subject }}
+    </div>
+    {% endfor  %}
+</div>
+</body>
+</html>

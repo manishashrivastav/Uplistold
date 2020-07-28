@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<!--===================================
+=            Clients Section        =
+====================================-->
+
+<section class="client-slider-03 section">
+	<div class="row">
+			<div class="col-md-12">
+				<div class="section-title">
+					<h2>{{c.category_name}} : SUB CATEGORIES </h2>
+				</div>
+			</div>
+		</div>
+
+	<!-- Container Start -->
+	<div class="container">
+		<div class="row">
+			<!-- Client Slider -->
+			<div class="col-md-12">
+				<!-- Client Slider -->
+				<div class="category-slider">
+					<!-- Client 01 -->
+					{% for s in sub %}
+					<div class="item">
+						<a href="{% url 'advertisements:ad_list_view' s.sub_id %}">
+							<h3>{{ s.sub_category_name }}</h3>
+						</a>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Container End -->
+</section>
+<br><br><br>
+
+{% endblock %}

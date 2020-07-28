@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks%}
+{% block body %}
+
+
+<!-- page title -->
+<!--================================
+=            Page Title            =
+=================================-->
+<section class="page-title">
+	<!-- Container Start -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 offset-md-2 text-center">
+				<!-- Title text -->
+				<h3>Contact Us</h3>
+			</div>
+		</div>
+	</div>
+	<!-- Container End -->
+</section>
+<!-- page title -->
+
+<!-- contact us start-->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="contact-us-content p-4">
+                    <h5>Contact Us</h5>
+                    <h1 class="pt-3">Hello, what's on your mind?</h1>
+                    <p class="pt-3 pb-5">We build a platform for buying and selling services and goods such as electronics, fashion items, furniture, household goods, cars and bikes ,
+                        used by 350 million people every month across INDIA.In this a user can register , login and post any ad..</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                    <form method="post">
+                            {% csrf_token %}
+                            {% if messages %}
+                                <div class="alert alert-{{message.tags}}" style="font-weight:bold; font-size:20px;; font-style: italic; text-align:center;">
+                                    {{ message }}
+                                </div>
+                            {% endif %}
+
+                        <fieldset class="p-4">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-lg-6 py-2">
+                                        {% render_field form.name class+="form-control" %}
+                                    </div>
+
+                                </div>
+                            </div>
+                            {% render_field form.subject class+="form-control" %}
+                            <textarea name="message" id="d"  placeholder="Message *" class="border w-100 p-3 mt-3 mt-lg-4"></textarea>
+                            <div class="btn-grounp">
+                                <button type="submit" class="btn btn-primary mt-2 float-right">SUBMIT</button>
+                            </div>
+                        </fieldset>
+                    </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- contact us end -->
+
+<!--============================
+=            Footer            =
+=============================-->
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<!--================================
+=            Page Title            =
+=================================-->
+<section class="page-title">
+	<!-- Container Start -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 offset-md-2 text-center">
+				<!-- Title text -->
+				<h3>About Us</h3>
+			</div>
+		</div>
+	</div>
+	<!-- Container End -->
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="about-img">
+                    <img src="{% static 'images/micorosoft_surface_dribbble.gif' %}" class="img-fluid w-100 rounded" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 pt-5 pt-lg-0">
+                <div class="about-content">
+
+                    <h1 style="text-align:center; font-weight:bold; padding:10px;">Uplistold - A perfect website to buy and sell near you<h2>Classifieds brands worldwide</h2></h1>
+                    <p>We are the world’s fastest-growing network of trading platforms, operating in 30 countries around the world.</p><br>
+                    <p>We build a platform for buying and selling services and goods such as electronics, fashion items, furniture, household goods, cars and bikes ,
+                        used by 350 million people every month across INDIA.In this a user can register , login and post any ad.
+                    </p>
+                    <h3 class="font-weight-bold">How we can help</h3>
+                    <ol>
+                        <li>“We improvise, experiment and listen to our customers”</li>
+                        <li> “We are allergic to corporate interference and we love to operate in exciting markets"</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

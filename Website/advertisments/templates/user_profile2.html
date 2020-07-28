@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block body %}
+<!--==================================
+=            User Profile            =
+===================================-->
+
+<section class="user-profile section">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10 offset-md-1 col-lg-3 offset-lg-0">
+				<div class="sidebar">
+					<!-- User Widget -->
+					<div class="widget user">
+						<!-- User Image -->
+						<div class="image d-flex justify-content-center">
+							{% if user.profile.ad_profile_pic.url %}
+								<img src='{{user.profile.ad_profile_pic.url}}' alt="" class="">
+							{% else %}
+								<img src="{% static 'images/user/person2.png' %}" alt="" class="">
+							{% endif %}
+						</div>
+						<!-- User Name -->
+						<h5 class="text-center">{{user.username}}</h5>
+					</div>
+					<!-- Dashboard Links -->
+					<div class="widget dashboard-links">
+						<ul>
+							<li class="active">
+								<a href="/my_ads"><i class="fa fa-user"></i> My Ads</a>
+							</li>
+							<li>
+								<a href="/pending_ads"><i class="fa fa-bolt"></i> Pending Ads</a>
+							</li>
+							<li>
+								<a href="/reply_contact"><i class="fa fa-bolt"></i> Queries Reply</a>
+							</li>
+							<li>
+								<a href="/logout"><i class="fa fa-cog"></i> Logout</a>
+							</li>
+							<li>
+								<a href="" data-toggle="modal" data-target="#deleteaccount"><i class="fa fa-power-off"></i>Delete Account</a>
+							</li>
+						</ul>
+					</div>
+						<!-- delete-account modal -->
+											  <!-- delete account popup modal start-->
+                <!-- Modal -->
+                <div class="modal fade" id="deleteaccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                  aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header border-bottom-0">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body text-center">
+                        <img src='{{user.profile.ad_profile_pic.url}}'  class="img-fluid mb-2" alt="">
+                        <h6 class="py-2">Are you sure you want to delete your account?</h6>
+                        <p>Do you really want to delete these records? This process cannot be undone.</p>
+                        <textarea name="message" id="" cols="40" rows="4" class="w-100 rounded"></textarea>
+                      </div>
+                      <div class="modal-footer border-top-0 mb-3 mx-5 justify-content-lg-between justify-content-center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                        <a href="/delete_user/"> <button type="button" class="btn btn-danger">Delete</button></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- delete account popup modal end-->
+					<!-- delete-account modal -->
+				</div>
+			</div>
+			<div class="col-md-10 offset-md-1 col-lg-9 offset-lg-0">
+				<!-- Edit Profile Welcome Text -->
+				<div class="widget welcome-message">
+					<h1 style="text-align: center;">Upload Profile Picture</h1>
+				</div>
+				<!-- Edit Personal Info -->
+				<div class="row">
+
+					<div class="col-lg-9 col-md-9">
+						<div class="widget personal-info">
+							<form method="post" enctype= "multipart/form-data">
+								{% csrf_token %}
+								<div class="form-group">
+									{{ form.Phone.label_tag }}
+									{% render_field form.Phone class+="form-control" %}
+								</div>
+
+								<div class="form-group choose-file d-inline-flex">
+									<i class="fa fa-user text-center px-3"></i>
+									     {{ form.ad_profile_pic.label_tag }}
+									     {% render_field form.ad_profile_pic class+="form-control-file mt-4 pt-1" %}
+								 </div>
+
+								<button class="btn btn-transparent">Save My Changes</button>
+							</form>
+						</div>
+					</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+</section>
+
+{{user}}
+{% endblock %}

@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block body %}
+<!--<script src="{% static 'js/subcat.js' %}" language="javascript" type="text/javascript"></script>-->
+
+
+
+
+<section class="ad-post bg-gray py-5">
+    <div class="container">
+        {% if product %}
+            <div class="widget welcome-message">
+                        <h1 style="text-align: center;">Update Your Ad</h1>
+            </div>
+        {% else %}
+            <div class="widget welcome-message">
+                        <h1 style="text-align: center;">Post Your Ad</h1>
+            </div>
+            <div class="col-md-12">
+                    <div class="section-title">
+                        <h2>Are You a Registered Seller ?</h2>
+                        <p>If not, then <a href="/register">Click here.</a> </p>
+                    </div>
+            </div>
+        {% endif %}
+<!--       <div class="row">-->
+
+        <form  method="POST" enctype= "multipart/form-data">
+            {% csrf_token %}
+            <!-- Post Your ad start -->
+            <fieldset class="border bg-white p-4 my-5 ad-feature bg-gray">
+                    <div class="row">
+						{% if messages %}
+							{% for message in messages %}
+								<ul style="font-weight:bold; font-size:20px;; font-style: italic; color : red;
+                                            text-align:center; padding-bottom: 25px;">{{ message }}</ul>
+							{% endfor %}
+						{% endif %}
+                        <div class="col-lg-12">
+                            <h3>Ad Description : </h3>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+									<h6 class="font-weight-bold pt-4 pb-1">Title of your Ad :</h6>
+									{% render_field form.ad_title class+="form-control" %}
+							</div>
+                            <div class="form-group">
+									<h6 class="font-weight-bold pt-4 pb-1">Select Ad Category :</h6>
+									{% render_field form.ad_cat class+="w-100" %}
+							</div>
+							<div class="form-group">
+									<h6 class="font-weight-bold pt-4 pb-1">Category Ad Sub-category :</h6>
+									{% render_field form.ad_subcat class+="w-100" %}
+							</div>
+                             <div class="form-group">
+<!--									{{ form.ad_brand.label_tag }}-->
+								    <h6 class="font-weight-bold pt-4 pb-1">Brand :</h6>
+									{% render_field form.ad_brand class+="form-control" %}
+							</div>
+                            <div class="form-group">
+									<h6 class="font-weight-bold pt-4 pb-1">Model :</h6>
+									{% render_field form.ad_model class+="form-control" %}
+							</div>
+							<div class="form-group">
+									<h6 class="font-weight-bold pt-4 pb-1">Condition :</h6>
+									{% render_field form.condition class+="form-control" %}
+							</div>
+							<div class="price">
+									<h6 class="font-weight-bold pt-4 pb-1">Item Price :</h6>
+									{% render_field form.ad_price class+="border w-100 p-2 bg-white text-capitalize" %}
+							</div>
+                            <div class="form-group">
+									<h6 class="font-weight-bold pt-4 pb-1">Description :</h6>
+									{% render_field form.ad_description class+="border p-3 w-100" %}
+							</div>
+
+
+                        </div>
+                        <div class="col-lg-6">
+
+                             <div class="choose-file text-center my-4 py-4 rounded">
+                                <label >
+                                    <span class="d-block font-weight-bold text-dark">Drop Images to upload</span>
+                                    <span class="d-block">Maximum upload Image size: 2MB </span>
+                                    <span class="btn bg-primary text-black my-3 select-files">{% render_field  form.ad_image1 %} Image No. 1*</span>
+                                    <span class="btn bg-primary text-black my-3 select-files">{% render_field  form.ad_image2 %} Image No. 2 </span>
+                                    <span class="btn bg-primary text-black my-3 select-files">{% render_field  form.ad_image3 %} Image No. 3 </span>
+                                </label>
+                            </div>
+                            <div class="choose-file my-4 py-4 rounded">
+                                <div style="padding:15px;">
+                                    <h2 style="text-align:center;">Location</h2>
+                                <div class="form-group">
+									<h6 class="font-weight-bold pt-4 pb-1">Location:</h6>
+									{% render_field form.ad_location class+="form-control" %}
+
+                                </div>
+                                <div class="form-group">
+									<h6 class="font-weight-bold pt-4 pb-1">City :</h6>
+									{% render_field form.ad_city class+="form-control" %}
+                                </div>
+                                <div class="form-group">
+									<h6 class="font-weight-bold pt-4 pb-1">State:</h6>
+									{% render_field form.ad_state class+="form-control" %}
+							    </div>
+                                <div class="form-group">
+									<h6 class="font-weight-bold pt-4 pb-1">Pin Code:</h6>
+									{% render_field form.ad_pin_code class+="form-control" %}
+                                </div></div>
+
+                            </div>
+                            <h6 class="font-weight-bold pt-4 pb-1">Ad Status:</h6>
+                            <div class="col-lg-4 mr-lg-4 my-2 rounded bg-white">
+                                {% render_field  form.ad_status %}
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+            </fieldset>
+
+            <!-- submit button -->
+            <div class="checkbox d-inline-flex">
+                <input type="checkbox" id="terms-&-condition" class="mt-1">
+                <label for="terms-&-condition" class="ml-2">By click you must agree with our
+                    <span> <a class="text-success" href="/terms_condition">Terms & Condition and Posting Rules.</a></span>
+                </label>
+            </div>
+           {% if product %}
+                <button type="submit" class="btn btn-primary d-block mt-2">Update</button>
+           {% else %}
+                <button type="submit" class="btn btn-primary d-block mt-2">Post Your Ad</button>
+           {% endif %}
+        </form>
+            <!-- Post Your ad end -->
+<!--
+           seller-information start -->
+
+
+            <!-- ad-feature end -->
+
+            <!-- submit button -->
+
+
+    </div>
+</section>
+
+{% endblock %}
+

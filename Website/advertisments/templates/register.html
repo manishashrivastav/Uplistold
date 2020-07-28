@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+
+<<section class="login py-5 border-top-1">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5 col-md-8 align-item-center">
+                    <div class="border border">
+                        <h3 class="bg-gray p-4">Register Now</h3>
+                        <form action="/register/" method="Post">
+                            {% csrf_token %}
+                            <fieldset class="p-4">
+                                {% for field in form %}
+                                    {% render_field field class+="border p-3 w-100 my-2" %}<span></span><br>
+                                    {% for error in field.errors %}
+                                      <p style="color: red">{{ error }}</p>
+                                    {% endfor %}
+                                {% endfor %}
+                                <div class="loggedin-forgot d-inline-flex my-3">
+                                        <input type="checkbox" id="registering" class="mt-1">
+                                        <label for="registering" class="px-2">By registering, you accept our <a class="text-primary font-weight-bold" href="/terms_condition">Terms & Conditions</a></label>
+                                </div>
+                                {% if messages %}
+                                        {% for message in messages %}
+                                            <ul style="font-weight:bold; font-size:20px;; font-style: italic; color : red;
+                                            text-align:center; padding-bottom: 25px;">{{ message }}</ul>
+                                            {% endfor %}
+                                {% endif %}
+                                <button type="submit" class="d-block py-3 px-4 bg-primary text-white border-0 rounded font-weight-bold">Register Now</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock%}

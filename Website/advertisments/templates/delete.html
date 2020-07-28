@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+      <form method="POST">
+          {% csrf_token %}
+            <h1 class="display-4">Are you sure you want to delete {{ product.ad_title }}</h1><br><br>
+          <button type="submit" class="btn btn-primary d-block mt-2">Confirm</button>
+      </form>
+  </div>
+</div>
+
+{% endblock %}

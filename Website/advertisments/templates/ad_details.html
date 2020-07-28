@@ -1,0 +1,308 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load extras %}
+{% block body %}
+
+<section class="page-search">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<!-- Advance Search -->
+				<div class="advance-search">
+					<form method="GET" action="{% url 'advertisements:search' %}">
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<input type="text" name="title" class="form-control my-2 my-lg-0" id="title" placeholder="What are you looking for">
+							</div>
+							<div class="form-group col-md-3">
+								<select class="w-100 form-control mt-lg-1 mt-md-2" name="category" , id="category">
+                                    <option disabled selected value=" ">Category</option>
+                                    {% for c in cat %}
+                                        <option value={{c.category_name }}>{{ c.category_name}}</option>
+                                    {% endfor %}
+                                </select>
+							</div>
+							<div class="form-group col-md-3">
+								<input type="text" name="location" class="form-control my-2 my-lg-0" id="location" placeholder="Location">
+							</div>
+							<div class="form-group col-md-2">
+
+								<button type="submit" class="btn btn-primary">Search Now</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--===================================
+=            Store Section            =
+====================================-->
+<section class="section bg-gray">
+	<!-- Container Start -->
+	<div class="container">
+		<div class="widget welcome-message">
+                        <h1 style="text-align: center;">{{ post.ad_title}}</h1>
+		</div>
+		<div class="row">
+			<!-- Left sidebar -->
+			<div class="col-md-8">
+				<div class="product-details">
+<!--					<h1 class="product-title">{{ post.ad_title}}</h1>-->
+					<div class="product-meta">
+						<ul class="list-inline">
+							<li class="list-inline-item"><i class="fa fa-user-o"></i> By <a href="">{{ post.owner}}</a></li>
+							<li class="list-inline-item"><i class="fa fa-folder-open-o"></i> Category<a href="">{{ post.ad_cat}}</a></li>
+							<li class="list-inline-item"><i class="fa fa-location-arrow"></i> Location<a href=""> {{ post.ad_state}}</a></li>
+						</ul>
+					</div>
+
+					<!-- product slider -->
+					<div class="product-slider" style="height:800px;">
+						<div class="product-slider-item my-4" data-image="{{ post.ad_image1.url}}">
+							<img class="img-fluid w-100"  style="height:500px;" src="{{ post.ad_image1.url}}">
+						</div>
+						{% if "{{ post.ad_image2.url}}" != "/media/No%20Image" %}
+						<div class="product-slider-item my-4" data-image="{{ post.ad_image2.url}}">
+							<img class="d-block img-fluid w-100" style="height:500px;" src="{{ post.ad_image2.url}}" alt="Second slide">
+						</div>
+						{% endif %}
+						{% if "{{ post.ad_image2.url}}" %}
+						<div class="product-slider-item my-4" data-image="{{ post.ad_image3.url}}">
+							<img class="d-block img-fluid w-100" style="height:500px;" src="{{ post.ad_image3.url}}" alt="Third slide">
+						</div>
+						{% endif %}
+					</div>
+					<!-- product slider -->
+
+					<div class="content mt-5 pt-5">
+						<ul class="nav nav-pills  justify-content-center" id="pills-tab" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home"
+								 aria-selected="true">Ad Description</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile"
+								 aria-selected="false">Ad Details</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact"
+								 aria-selected="false">Chat with Owner</a>
+							</li>
+						</ul>
+						<div class="tab-content" id="pills-tabContent">
+							<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+								<h3 class="tab-title">Ad Description</h3>
+								<p>{{ post.ad_description }}</p>
+
+							</div>
+							<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+								<h3 class="tab-title">Ad Details</h3>
+								<table class="table table-bordered product-table">
+									<tbody>
+										<tr>
+											<td>Seller Price</td>
+											<td>{{ post.ad_price}}</td>
+										</tr>
+										<tr>
+											<td>Added</td>
+											<td> {{ post.post_date}}</td>
+										</tr>
+										<tr>
+											<td>Location</td>
+											<td>{{ post.ad_location}} | {{post.ad_city}}</td>
+										</tr>
+										<tr>
+											<td>Brand</td>
+											<td>{{ post.ad_brand}}</td>
+										</tr>
+										<tr>
+											<td>Condition</td>
+											<td>{{ post.condition}}</td>
+										</tr>
+										<tr>
+											<td>Model</td>
+											<td>{{ post.ad_model}}</td>
+										</tr>
+										<tr>
+											<td>Category</td>
+											<td>{{ post.ad_cat}}</td>
+										</tr>
+										<tr>
+											<td>Sub-Category</td>
+											<td>{{ post.ad_subcat}}</td>
+										</tr>
+										<tr>
+											<td>State</td>
+											<td>{{ post.ad_state}}</td>
+										</tr>
+										<tr>
+											<td>Pincode</td>
+											<td>{{ post.ad_pin_code}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+								<h3 class="tab-title">Chat With the Seller</h3>
+								<div class="product-review ">
+									{% for review in reviews %}
+									{% if review.name_of_customer == request.user %}
+									<h3 class="my-5">{{ review.name_of_customer}}   <span class="badge badge-secondary" style="padding:5px;">{{ review.post_date_review }}</span></h3>
+									<h6>{{ review.subject}}</h6>
+									<div class="media">
+										<div class="media-body">
+											<div class="review-comment">
+											<p>{{ review.message}} </p>
+
+											</div>
+										</div>
+									</div>
+                                    <div>
+										{% for reply in replydict|get_val:review.id %}
+										<div class="my-0" style="padding-left:32px;">
+											<h3 class="my-1">{{ reply.name_of_customer}}</h3>
+											<span style="font-size:10px;">{{reply.post_date_review }}</span>
+											<div class="media">
+												<div class="media-body review-comment">
+													<h6>{{ reply.subject}}</h6>
+													<p>{{ reply.message}} </p>
+												</div>
+										    </div>
+										</div>
+										{% endfor %}
+									</div>
+									<div>
+										<p>
+										  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#replyBox{{review.id}}" aria-controls="replyBox{{review.id}}">Reply</button>
+										</p>
+										<div style="padding-left: 25px;" class="collapse" id="replyBox{{review.id}}">
+										  <div class="card card-body" >
+												<form action="/review/{{post.id}}" class="row" method="POST">
+												<div class="col-md-12">
+													{% if messages %}
+													{% for message in messages %}
+														<ul style="font-weight:bold; font-size:20px;; font-style: italic; color : black;
+														text-align:center; padding-bottom: 25px;">{{ message }}</ul>
+													{% endfor %}
+												{% endif %}
+
+												</div>
+
+												{% csrf_token %}
+												<div class="col-lg-6">
+													<h4>Reply Back</h4>
+													{% render_field form.subject class+="form-control" %}
+												</div>
+												<div class="col-12 my-2">
+													<h4>Reply Context</h4>
+													{% render_field form.message class+="form-control" %}
+												</div>
+													<input type="hidden" name="r_id" value={{review.id}}>
+
+													<button type="submit" class="btn btn-main my-2">Sumbit</button>
+												</form>
+										  </div>
+										</div>
+									</div>
+									{% endif %}
+									{% endfor %}
+
+                                    <div class="card card-body my-5">
+												<form action="/review/{{post.id}}" class="row" method="POST">
+												<div class="col-md-12">
+													{% if messages %}
+													{% for message in messages %}
+														<ul style="font-weight:bold; font-size:20px;; font-style: italic; color : black;
+														text-align:center; padding-bottom: 25px;">{{ message }}</ul>
+													{% endfor %}
+												{% endif %}
+
+												</div>
+
+												{% csrf_token %}
+												<div class="col-lg-6">
+													{{ form.subject.label_tag }}
+													{% render_field form.subject class+="form-control" %}
+												</div>
+												<div class="col-12">
+													{{ form.message.label_tag }}
+													{% render_field form.message class+="form-control" %}
+												</div>
+												<div class="col-12">
+													{% if user.id is not None %}
+													<button type="submit" class="btn btn-main">Sumbit</button>
+													{% else %}
+													<h6>You must be logged in to post a review.</h6>
+													<h5><a href="/login">Click here</a> to login.</h5>
+													{% endif %}
+												</div>
+												</form>
+										  </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="sidebar">
+					<div class="widget price text-center">
+						<h4>Price</h4>
+						<p>Rs. {{ post.ad_price}}</p>
+					</div>
+					<!-- User Profile widget -->
+					<div class="widget user text-center">
+						{% if pro.ad_profile_pic.url %}
+							<img class="rounded-circle img-fluid mb-5 px-5" src="{{pro.ad_profile_pic.url}}" alt="">
+						{% else %}
+							<img class="rounded-circle img-fluid mb-5 px-5" src="{% static 'images/user/person2.png' %}" alt="">
+						{% endif %}
+						<h4><a href=""> {{ post.owner }} </a></h4>
+						{% if loc.city %}
+                        	<h4>Location : {{ loc.city}} | {{loc.state }}</h4>
+						{% endif %}
+						<a href="">See all ads</a>
+						<ul class="list-inline mt-20">
+							<button type="button" class="btn btn-primary d-block mt-2">Contact : {{ pro.Phone}}</button>
+						</ul>
+					</div>
+					<!-- Safety tips widget -->
+					<div class="widget disclaimer">
+						<h5 class="widget-header">Safety Tips</h5>
+						<ul>
+							<li>Meet seller at a public place</li>
+							<li>Check the item before you buy</li>
+							<li>Pay only after collecting the item</li>
+<!--							<li>Pay only after collecting the item</li>-->
+						</ul>
+					</div>
+					<!-- Coupon Widget -->
+					<div class="widget coupon text-center">
+						<!-- Coupon description -->
+						<p>Have a great product to post ? Share it with
+							your fellow users.
+						</p>
+						<!-- Submii button -->
+						{% if user.id is not None %}
+						<a href="/ad-listing" class="btn btn-transparent-white">Submit Listing</a>
+						{% else %}
+						<a href="/login" class="btn btn-transparent-white">Submit Listing</a>
+						{% endif %}
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- Container End -->
+</section>
+<!--{{ user.location}}-->
+
+<!--============================
+=            Footer            =
+=============================-->
+{% endblock %}

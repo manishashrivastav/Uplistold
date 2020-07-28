@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<section class="page-search">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<!-- Advance Search -->
+				<div class="advance-search">
+					<form method="'GET" action="{% url 'advertisements:search' %}">
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<input type="text"  name="title" class="form-control my-2 my-lg-0" id="title" placeholder="What are you looking for">
+							</div>
+							<div class="form-group col-md-3">
+								<select class="w-100 form-control mt-lg-1 mt-md-2" name="category" id="category">
+                                    <option disabled selected value=" ">Category</option>
+                                    {% for c in cate %}
+                                        <option value={{c.category_name }}>{{ c.category_name}}</option>
+                                    {% endfor %}
+                                </select>
+							</div>
+							<div class="form-group col-md-3">
+								<input type="text" name="location" class="form-control my-2 my-lg-0" id="location" placeholder="Location">
+							</div>
+							<div class="form-group col-md-2">
+
+								<button type="submit" class="btn btn-primary">Search Now</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<section class="section-sm">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+                {% if cat %}
+				<div class="search-result bg-gray">
+					<h2>Results For {{cat}} | {{subcat}}</h2>
+				</div>
+                {% else%}
+                <div class="search-result bg-gray">
+					<h2>No related Results</h2>
+				</div>
+                {% endif%}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-3 col-md-4">
+				<div class="category-sidebar">
+					<div class="widget category-list">
+                        <h4 class="widget-header">All Category</h4>
+                        <ul class="category-list">
+                            {% for c in cate %}
+                                <li><a href="{% url 'advertisements:store' c.cat_id %}">{{ c.category_name}} </a></li>
+                            {% endfor %}
+                        </ul>
+                     </div>
+
+                   <form method="GET" action="{% url 'advertisements:search' %}">
+<div class="widget category-list">
+	<h4 class="widget-header">Nearby</h4>
+	<select class="w-100 form-control mt-lg-1 mt-md-2" name="location" , id="location">
+		<option disabled selected value=" ">Location</option>
+		{% for l in loc %}
+			<option value={{l.city }}>{{ l.city}}</option>
+		{% endfor %}
+	</select>
+	<button type="submit" class="btn btn-primary">Search</button>
+</div>
+						</form>
+
+				</div>
+			</div>
+
+
+    <div class="col-lg-9 col-md-8">
+        <div class="category-search-filter">
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Short</strong>
+                    <select>
+                        <option>Most Recent</option>
+                        <option value="1">Most Popular</option>
+                        <option value="2">Lowest Price</option>
+                        <option value="4">Highest Price</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <div class="view">
+                        <strong>Views</strong>
+                        <ul class="list-inline view-switcher">
+                            <li class="list-inline-item">
+                                <a href="category.html"><i class="fa fa-th-large"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="category.html" class="text-info"><i class="fa fa-reorder"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if ad_list %}
+		{% for a in ad_list %}		<!-- ad listing list  -->
+        <div class="ad-listing-list mt-20">
+            <div class="row p-lg-3 p-sm-5 p-4">
+                <div class="col-lg-4 align-self-center">
+                    <a href="{% url 'advertisements:ad_details' a.id %}">
+                        <img src="{{a.ad_image1.url}}" class="img-fluid" alt="">
+                    </a>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-lg-10 col-md-4">
+                            <div class="ad-listing-content">
+
+                                <a href="{% url 'advertisements:ad_details' a.id %}" class="font-weight-bold"><h2>{{a.ad_title}}</h2></a>
+
+                                <ul class="list-inline mt-2 mb-3">
+                                    <li class="list-inline-item"><a href=""><i class="fa fa-calendar"></i>{{a.post_date}}</a></li>
+                                </ul>
+                                <h6>BRAND: {{a.ad_brand}}</h6>
+                                <h6>MODEL: {{a.ad_model}}</h6>
+                                <h1>Rs. {{a.ad_price}}</h1>
+
+                            </div>
+                        </div>
+<!--                        <div class="col-lg-6 align-self-center">-->
+<!--                            <div class="product-ratings float-lg-right pb-3">-->
+<!--                                <ul class="list-inline">-->
+<!--                                    <li class="list-inline-item selected"><i class="fa fa-star"></i></li>-->
+<!--                                    <li class="list-inline-item selected"><i class="fa fa-star"></i></li>-->
+<!--                                    <li class="list-inline-item selected"><i class="fa fa-star"></i></li>-->
+<!--                                    <li class="list-inline-item selected"><i class="fa fa-star"></i></li>-->
+<!--                                    <li class="list-inline-item"><i class="fa fa-star"></i></li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- pagination -->
+                <div class="pagination justify-content-center py-4">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            {% if ad_list.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ad_list.previous_page_number}}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                            <li class="page-item"><a class="page-link" href="#">{{ ad_list.number}}</a></li>
+                           {% if ad_list.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ad_list.next_page_number}}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+                {% else %}
+                    <h1>Search for any other Product </h1>{% endif %}
+
+			</div>
+		</div>
+	</div>
+</section>
+{% endblock %}
